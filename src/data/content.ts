@@ -37,8 +37,8 @@ export const content: {
   },
 
   contact: {
-    phone: '+32 479 39 00 73',
-    email: 'jarne_serroyen@outlook.com',
+    phone: 'NOG TOE TE VOEGEN',
+    email: 'NOG TOE TE VOEGEN',
   },
 
   services: [
