@@ -14,12 +14,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
 import { ServiceCard } from './components/ServiceCard';
+import { ServicePage } from './pages/ServicePage';
 import { content } from './data/content';
 import './styles.css';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
+    const pathname = window.location.pathname;
+
+  const serviceSlug = pathname.startsWith('/diensten/')
+    ? pathname.replace('/diensten/', '').replace(/\/$/, '')
+    : null;
   const page = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -119,7 +126,12 @@ export default function App() {
       duration: 1.05,
     });
 
-    return;
+    if (serviceSlug) {
+    return <ServicePage slug={serviceSlug} />;
+  }
+
+  return (
+    <div
   }
 
   const target = document.querySelector(id);

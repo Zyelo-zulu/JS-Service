@@ -1,3 +1,71 @@
-import {ArrowUpRight} from 'lucide-react'; import {motion} from 'framer-motion';
-type Props={number:string;title:string;short:string;price:string;image:string};
-export function ServiceCard({number,title,short,price,image}:Props){return <motion.article whileHover={{y:-8}} transition={{duration:.35,ease:'easeOut'}} className="service-card group relative min-h-[470px] overflow-hidden rounded-[2rem] border border-white/10 bg-graphite"><img src={image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-55 transition duration-700 group-hover:scale-105 group-hover:opacity-70"/><div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent"/><div className="relative flex h-full min-h-[470px] flex-col justify-between p-7 sm:p-9"><div className="flex items-center justify-between"><span className="font-mono text-xs text-champagne">{number}</span><span className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-black/20 backdrop-blur-sm transition group-hover:bg-champagne group-hover:text-ink"><ArrowUpRight size={18}/></span></div><div><p className="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-white/55">{price}</p><h3 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">{title}</h3><p className="mt-4 max-w-sm text-sm leading-6 text-white/65">{short}</p></div></div></motion.article>}
+import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+type Props = {
+  number: string;
+  title: string;
+  short: string;
+  price: string;
+  image: string;
+  slug: string;
+};
+
+export function ServiceCard({
+  number,
+  title,
+  short,
+  price,
+  image,
+  slug,
+}: Props) {
+  return (
+    <motion.a
+      href={`/diensten/${slug}`}
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      className="service-card group relative block min-h-[470px] overflow-hidden rounded-[2rem] border border-white/10 bg-graphite"
+    >
+      <img
+        src={image}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover opacity-55 transition duration-700 group-hover:scale-105 group-hover:opacity-70"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent" />
+
+      <div className="relative flex h-full min-h-[470px] flex-col justify-between p-7 sm:p-9">
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-xs text-champagne">
+            {number}
+          </span>
+
+          <span className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-black/20 backdrop-blur-sm transition group-hover:bg-champagne group-hover:text-ink">
+            <ArrowUpRight size={18} />
+          </span>
+        </div>
+
+        <div>
+          <p className="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-white/55">
+            {price}
+          </p>
+
+          <h3 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            {title}
+          </h3>
+
+          <p className="mt-4 max-w-sm text-sm leading-6 text-white/65">
+            {short}
+          </p>
+
+          <div className="mt-7 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-champagne">
+            Bekijk pakketten
+            <ArrowUpRight
+              size={15}
+              className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </div>
+        </div>
+      </div>
+    </motion.a>
+  );
+}
