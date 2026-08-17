@@ -109,28 +109,30 @@ export default function App() {
   }, []);
 
   const scrollTo = (id: string) => {
-    const target = document.querySelector(id);
+  setOpen(false);
 
-    if (!target) {
-      return;
-    }
+  const lenis = lenisRef.current;
 
-    setOpen(false);
+  if (lenis) {
+    lenis.scrollTo(id, {
+      offset: -88,
+      duration: 1.05,
+    });
 
-    const lenis = lenisRef.current;
+    return;
+  }
 
-    if (lenis) {
-      lenis.scrollTo(target, {
-        offset: -88,
-        duration: 1.05,
-      });
-    } else {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  };
+  const target = document.querySelector(id);
+
+  if (!target) {
+    return;
+  }
+
+  target.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+};
 
   return (
     <div
