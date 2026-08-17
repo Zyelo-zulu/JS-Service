@@ -277,7 +277,7 @@ export default function App() {
               <span>Premium car care</span>
 
               <span className="hidden sm:block">
-                Vlaanderen · Op aanvraag
+                Limburg · Op aanvraag
               </span>
             </div>
           </div>
