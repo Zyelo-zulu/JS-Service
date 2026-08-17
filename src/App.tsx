@@ -1,6 +1,13 @@
 import {useEffect,useRef,useState} from 'react'; import {ArrowDown,ArrowRight,Instagram,Mail,Menu,Phone,X} from 'lucide-react'; import {AnimatePresence,motion} from 'framer-motion'; import gsap from 'gsap'; import {ScrollTrigger} from 'gsap/ScrollTrigger'; import Lenis from 'lenis'; import {ServiceCard} from './components/ServiceCard'; import {content} from './data/content'; import './styles.css';
 gsap.registerPlugin(ScrollTrigger);
-export default function App(){const page=useRef<HTMLDivElement>(null);const[open,setOpen]=useState(false);useEffect(()=>{const lenis=new Lenis({lerp:.08,smoothWheel:true});lenis.on("scroll", ScrollTrigger.update);const raf=(time:number)=>{lenis.raf(time * 1000);ScrollTrigger.update()};gsap.ticker.add(raf);gsap.ticker.lagSmoothing(0);const ctx=gsap.context(()=>{gsap.utils.toArray<HTMLElement>('.reveal').forEach(el=>gsap.fromTo(el,{y:45,opacity:0},{y:0,opacity:1,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%',once:true}}));gsap.utils.toArray<HTMLElement>('.line-reveal').forEach(el=>gsap.fromTo(el,{scaleX:0},{scaleX:1,duration:1.1,ease:'power3.inOut',transformOrigin:'left center',scrollTrigger:{trigger:el,start:'top 90%',once:true}}))},page);return()=>{ctx.revert();gsap.ticker.remove(raf);lenis.destroy()}},[]);const scrollTo = (id: string) => {
+export default function App(){const page=useRef<HTMLDivElement>(null);const[open,setOpen]=useState(false);useEffect(()=>{const lenis = new Lenis({lerp:.08,smoothWheel:true});
+
+lenis.on("scroll", ScrollTrigger.update);
+
+const raf=(time:number)=>{
+  lenis.raf(time * 1000);
+  ScrollTrigger.update();
+};;ScrollTrigger.update()};gsap.ticker.add(raf);gsap.ticker.lagSmoothing(0);const ctx=gsap.context(()=>{gsap.utils.toArray<HTMLElement>('.reveal').forEach(el=>gsap.fromTo(el,{y:45,opacity:0},{y:0,opacity:1,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%',once:true}}));gsap.utils.toArray<HTMLElement>('.line-reveal').forEach(el=>gsap.fromTo(el,{scaleX:0},{scaleX:1,duration:1.1,ease:'power3.inOut',transformOrigin:'left center',scrollTrigger:{trigger:el,start:'top 90%',once:true}}))},page);return()=>{ctx.revert();gsap.ticker.remove(raf);lenis.destroy()}},[]);const scrollTo = (id: string) => {
   const target = document.querySelector(id);
 
   if (!target) return;
