@@ -14,7 +14,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
 import { ServiceCard } from './components/ServiceCard';
-import { ServicePage } from './pages/ServicePage';
+import { ServicePage } from './Pages/Servicepage';
 import { content } from './data/content';
 import './styles.css';
 

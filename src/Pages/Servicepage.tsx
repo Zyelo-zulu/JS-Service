@@ -1,10 +1,8 @@
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 type ServicePackage = {
   name: string;
   price: string;
-  description?: string;
   popular?: boolean;
   features: string[];
 };
@@ -129,16 +127,22 @@ const services: Record<string, ServiceData> = {
 };
 
 export function ServicePage({ slug }: { slug: string }) {
-  const navigate = useNavigate();
-
   const service = services[slug];
+
+  const goHome = () => {
+    window.location.href = '/';
+  };
+
+  const goToContact = () => {
+    window.location.href = '/#contact';
+  };
 
   if (!service) {
     return (
       <main className="min-h-screen bg-ink px-5 py-32 text-cream lg:px-8">
         <div className="mx-auto max-w-4xl">
           <button
-            onClick={() => navigate('/')}
+            onClick={goHome}
             className="mb-10 inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white"
           >
             <ArrowLeft size={16} />
@@ -162,7 +166,7 @@ export function ServicePage({ slug }: { slug: string }) {
       <header className="border-b border-white/10 bg-ink">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-8">
           <button
-            onClick={() => navigate('/')}
+            onClick={goHome}
             className="flex items-center gap-3"
           >
             <span className="grid h-9 w-9 place-items-center rounded-full bg-champagne font-display font-bold text-ink">
@@ -175,7 +179,7 @@ export function ServicePage({ slug }: { slug: string }) {
           </button>
 
           <button
-            onClick={() => navigate('/')}
+            onClick={goHome}
             className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 transition hover:text-white"
           >
             <ArrowLeft size={16} />
@@ -243,7 +247,7 @@ export function ServicePage({ slug }: { slug: string }) {
                 </ul>
 
                 <button
-                  onClick={() => navigate('/#contact')}
+                  onClick={goToContact}
                   className="mt-9 inline-flex items-center gap-3 rounded-full bg-champagne px-6 py-3.5 text-sm font-bold text-ink transition hover:bg-cream"
                 >
                   Vraag dit pakket aan
