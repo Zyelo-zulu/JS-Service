@@ -121,7 +121,7 @@ export function ServicePage({ slug }: Props) {
             <div className="grid lg:grid-cols-[1fr_1fr]">
               <div className="p-8 sm:p-12 lg:p-16">
                 <p className="text-xs font-bold uppercase tracking-[0.25em] text-ink/45">
-                  Klaar voor de volgende stap?
+                  Klaar voor de volgende stap? Neem contact met ons op
                 </p>
 
                 <h2 className="mt-6 font-display text-5xl font-semibold leading-none tracking-tight sm:text-6xl">
