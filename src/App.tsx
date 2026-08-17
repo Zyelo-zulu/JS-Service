@@ -1,21 +1,574 @@
-import {useEffect,useRef,useState} from 'react'; import {ArrowDown,ArrowRight,Instagram,Mail,Menu,Phone,X} from 'lucide-react'; import {AnimatePresence,motion} from 'framer-motion'; import gsap from 'gsap'; import {ScrollTrigger} from 'gsap/ScrollTrigger'; import Lenis from 'lenis'; import {ServiceCard} from './components/ServiceCard'; import {content} from './data/content'; import './styles.css';
+import { useEffect, useRef, useState } from 'react';
+import {
+  ArrowDown,
+  ArrowRight,
+  Instagram,
+  Mail,
+  Menu,
+  Phone,
+  X,
+} from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
+import { ServiceCard } from './components/ServiceCard';
+import { content } from './data/content';
+import './styles.css';
+
 gsap.registerPlugin(ScrollTrigger);
-export default function App(){const page=useRef<HTMLDivElement>(null);const[open,setOpen]=useState(false);useEffect(()=>{const lenis = new Lenis({lerp:.08,smoothWheel:true});
 
-lenis.on("scroll", ScrollTrigger.update);
+export default function App() {
+  const page = useRef<HTMLDivElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
-const raf=(time:number)=>{
-  lenis.raf(time * 1000);
-  ScrollTrigger.update();
-};;ScrollTrigger.update()};gsap.ticker.add(raf);gsap.ticker.lagSmoothing(0);const ctx=gsap.context(()=>{gsap.utils.toArray<HTMLElement>('.reveal').forEach(el=>gsap.fromTo(el,{y:45,opacity:0},{y:0,opacity:1,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%',once:true}}));gsap.utils.toArray<HTMLElement>('.line-reveal').forEach(el=>gsap.fromTo(el,{scaleX:0},{scaleX:1,duration:1.1,ease:'power3.inOut',transformOrigin:'left center',scrollTrigger:{trigger:el,start:'top 90%',once:true}}))},page);return()=>{ctx.revert();gsap.ticker.remove(raf);lenis.destroy()}},[]);const scrollTo = (id: string) => {
-  const target = document.querySelector(id);
+  const [open, setOpen] = useState(false);
 
-  if (!target) return;
+  useEffect(() => {
+    const lenis = new Lenis({
+      lerp: 0.08,
+      smoothWheel: true,
+    });
 
-  setOpen(false);
+    lenisRef.current = lenis;
 
-  lenis.scrollTo(target, {
-    offset: -88,
-    duration: 1.05,
-  });
-};return <div ref={page} className="min-h-screen overflow-hidden bg-ink text-cream selection:bg-champagne selection:text-ink"><header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-ink/60 backdrop-blur-xl"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8"><button onClick={()=>scrollTo('#top')} className="flex items-center gap-3 text-left"><span className="grid h-9 w-9 place-items-center rounded-full bg-champagne font-display font-bold text-ink">JS</span><span className="font-display text-sm font-semibold uppercase tracking-[0.16em]">Car Services</span></button><nav className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.14em] text-white/60 md:flex"><button onClick={()=>scrollTo('#services')} className="transition hover:text-white">Services</button><button onClick={()=>scrollTo('#aanpak')} className="transition hover:text-white">Aanpak</button><button onClick={()=>scrollTo('#contact')} className="transition hover:text-white">Contact</button></nav><button onClick={()=>setOpen(!open)} className="grid h-10 w-10 place-items-center rounded-full border border-white/10 md:hidden" aria-label="Menu">{open?<X size={18}/>:<Menu size={18}/>}</button></div><AnimatePresence>{open&&<motion.div initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} className="border-t border-white/5 bg-ink px-5 py-6 md:hidden"><div className="flex flex-col gap-5 text-sm uppercase tracking-widest text-white/70">{['#services','#aanpak','#contact'].map(id=><button key={id} onClick={()=>{setOpen(false);scrollTo(id)}}>{id.slice(1)}</button>)}</div></motion.div>}</AnimatePresence></header><main id="top"><section className="relative flex min-h-screen items-end px-5 pb-16 pt-32 lg:px-8"><div className="absolute inset-0"><img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=2200&q=90" alt="Premium auto" className="h-full w-full object-cover object-center opacity-60"/><div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_25%,rgba(200,169,107,.16),transparent_34%),linear-gradient(90deg,#08090B_4%,rgba(8,9,11,.72)_45%,rgba(8,9,11,.2)_100%)]"/><div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/30"/></div><div className="relative mx-auto w-full max-w-7xl"><div className="max-w-5xl"><motion.p initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:.15}} className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-champagne">JS Car Services · Detailing & onderhoud</motion.p><motion.h1 initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{delay:.25,duration:.8}} className="font-display text-[clamp(4rem,11vw,9.5rem)] font-semibold leading-[.82] tracking-[-0.07em] text-white">Uw wagen.<br/><span className="text-white/40">Onze standaard.</span></motion.h1><motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.7}} className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center"><button onClick={()=>scrollTo('#contact')} className="inline-flex w-fit items-center gap-3 rounded-full bg-champagne px-6 py-3.5 text-sm font-bold text-ink transition hover:bg-cream">Vraag een kostenraming <ArrowRight size={17}/></button><button onClick={()=>scrollTo('#services')} className="inline-flex w-fit items-center gap-3 text-sm font-semibold text-white/70 hover:text-white">Bekijk services <ArrowDown size={16}/></button></motion.div></div><div className="mt-16 flex items-end justify-between border-t border-white/15 pt-5 text-xs uppercase tracking-[0.18em] text-white/40"><span>Premium car care</span><span className="hidden sm:block">Vlaanderen · Op aanvraag</span></div></div></section><section className="px-5 py-28 lg:px-8 lg:py-40"><div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr]"><div className="reveal"><p className="eyebrow">01 / JS Car Services</p><h2 className="mt-6 font-display text-4xl font-semibold tracking-tight sm:text-6xl">Meer dan een propere wagen.</h2></div><div className="reveal max-w-2xl lg:pt-10"><p className="text-xl leading-9 text-white/70 sm:text-2xl">Van een premium handwas tot polieren, coating en onderhoud: JS Car Services brengt aandacht voor detail samen met een persoonlijke aanpak.</p><div className="line-reveal mt-10 h-px w-full bg-white/15"/><p className="mt-7 text-sm leading-7 text-white/45">Heeft jouw wagen iets anders nodig? Bespreek het. Werk op aanvraag is mogelijk wanneer de opdracht past binnen onze mogelijkheden.</p></div></div></section><section id="services" className="px-5 py-20 lg:px-8 lg:py-28"><div className="mx-auto max-w-7xl"><div className="reveal mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><div><p className="eyebrow">02 / Services</p><h2 className="mt-5 font-display text-5xl font-semibold tracking-tight sm:text-7xl">Wat we doen.</h2></div><p className="max-w-xs text-sm leading-6 text-white/45">Van verzorging tot correctie en bescherming. Elke wagen vraagt een aanpak op maat.</p></div><div className="grid gap-5 md:grid-cols-2">{content.services.map(s=><ServiceCard key={s.number}{...s}/>)}</div><p className="mt-6 max-w-3xl text-xs leading-6 text-white/35">{content.priceNote}</p></div></section><section id="aanpak" className="relative px-5 py-28 lg:px-8 lg:py-40"><div className="absolute inset-0 bg-graphite/60"/><div className="relative mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center"><div className="reveal overflow-hidden rounded-[2rem]"><img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1600&q=85" alt="Detailing close-up" className="aspect-[4/5] w-full object-cover"/></div><div className="reveal"><p className="eyebrow">03 / Aanpak</p><h2 className="mt-6 font-display text-5xl font-semibold leading-none tracking-tight sm:text-7xl">Details maken het verschil.</h2><p className="mt-8 max-w-xl text-base leading-8 text-white/55">Een wagen hoeft niet alleen schoon te zijn. De afwerking zit in de details. Daarom starten we met luisteren naar wat jij en jouw wagen nodig hebben, voor we een gerichte kostenraming maken.</p><div className="mt-10 grid grid-cols-2 gap-4">{['Persoonlijke aanpak','Maatwerk','Premium afwerking','Duidelijke raming'].map((x,i)=><div key={x} className="border-t border-white/15 pt-4"><span className="font-mono text-xs text-champagne">0{i+1}</span><p className="mt-3 text-sm text-white/75">{x}</p></div>)}</div></div></div></section><section className="px-5 py-28 lg:px-8 lg:py-40"><div className="mx-auto max-w-7xl rounded-[2.5rem] border border-champagne/20 bg-[radial-gradient(circle_at_70%_20%,rgba(200,169,107,.14),transparent_38%)] p-8 sm:p-14 lg:p-20"><p className="eyebrow">04 / Maatwerk</p><div className="mt-8 grid gap-10 lg:grid-cols-[1.3fr_.7fr] lg:items-end"><h2 className="font-display text-5xl font-semibold leading-[.95] tracking-tight sm:text-7xl lg:text-8xl">Niet gevonden wat je zoekt?</h2><div><p className="text-sm leading-7 text-white/55">Andere automotive werken kunnen op aanvraag besproken worden. Vertel ons wat je wagen nodig heeft.</p><button onClick={()=>scrollTo('#contact')} className="mt-7 inline-flex items-center gap-2 font-semibold text-champagne hover:text-cream">Bespreek je wagen <ArrowRight size={16}/></button></div></div></div></section><section id="contact" className="px-5 pb-10 pt-10 lg:px-8 lg:pb-16"><div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2.5rem] bg-cream text-ink lg:grid-cols-[.9fr_1.1fr]"><div className="p-8 sm:p-12 lg:p-16"><p className="text-xs font-bold uppercase tracking-[0.25em] text-ink/45">05 / Contact</p><h2 className="mt-6 font-display text-5xl font-semibold leading-none tracking-tight sm:text-6xl">Klaar voor de volgende stap?</h2><p className="mt-6 max-w-md text-sm leading-7 text-ink/60">Neem contact op voor een gerichte kostenraming. Vermeld bij voorkeur je wagen en de gewenste service.</p><div className="mt-10 space-y-4 text-sm"><a href={`tel:${content.contact.phone.replace(/\s/g,'')}`} className="flex items-center gap-3 font-semibold hover:opacity-60"><Phone size={17}/> {content.contact.phone}</a><a href={`mailto:${content.contact.email}`} className="flex items-center gap-3 font-semibold hover:opacity-60"><Mail size={17}/> {content.contact.email}</a></div></div><form className="bg-ink p-8 sm:p-12 lg:p-16" onSubmit={e=>e.preventDefault()}><div className="grid gap-6 sm:grid-cols-2">{['Naam','Telefoon','E-mail','Voertuig'].map(label=><label key={label} className="block">{label}<input required={label==='Naam'||label==='E-mail'} className="field" placeholder={label==='Voertuig'?'Merk + model':''}/></label>)}<label className="sm:col-span-2">Gewenste service<select className="field"><option>Premium handwas</option><option>Polieren</option><option>Coating</option><option>Onderhoud</option><option>Andere / op aanvraag</option></select></label><label className="sm:col-span-2">Bericht<textarea className="field min-h-32" placeholder="Vertel kort wat je wagen nodig heeft..."/></label></div><button type="submit" className="mt-7 inline-flex items-center gap-3 rounded-full bg-champagne px-6 py-3.5 text-sm font-bold text-ink transition hover:bg-cream">Aanvraag versturen <ArrowRight size={17}/></button><p className="mt-5 text-xs leading-5 text-white/35">Dit formulier is momenteel front-end only. Koppel later een formulierdienst of backend om inzendingen te ontvangen.</p></form></div></section></main><footer className="px-5 py-12 lg:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-8 border-t border-white/10 pt-8 sm:flex-row sm:items-end sm:justify-between"><div><div className="font-display text-2xl font-bold">JS<span className="text-champagne">.</span></div><p className="mt-2 text-xs uppercase tracking-[0.18em] text-white/35">Car Services</p></div><div className="flex items-center gap-5 text-white/45"><a href={`tel:${content.contact.phone.replace(/\s/g,'')}`} aria-label="Telefoon" className="hover:text-white"><Phone size={18}/></a><a href={`mailto:${content.contact.email}`} aria-label="E-mail" className="hover:text-white"><Mail size={18}/></a><a href="#" aria-label="Instagram" className="hover:text-white"><Instagram size={18}/></a></div><p className="text-xs text-white/25">© {new Date().getFullYear()} JS Car Services</p></div></footer></div>}
+    const handleScroll = () => {
+      ScrollTrigger.update();
+    };
+
+    lenis.on('scroll', handleScroll);
+
+    const raf = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
+    const ctx = gsap.context(() => {
+      const revealElements = gsap.utils.toArray<HTMLElement>('.reveal');
+
+      revealElements.forEach((element) => {
+        gsap.fromTo(
+          element,
+          {
+            y: 45,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 86%',
+              once: true,
+            },
+          },
+        );
+      });
+
+      const lineRevealElements =
+        gsap.utils.toArray<HTMLElement>('.line-reveal');
+
+      lineRevealElements.forEach((element) => {
+        gsap.fromTo(
+          element,
+          {
+            scaleX: 0,
+          },
+          {
+            scaleX: 1,
+            duration: 1.1,
+            ease: 'power3.inOut',
+            transformOrigin: 'left center',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 90%',
+              once: true,
+            },
+          },
+        );
+      });
+
+      ScrollTrigger.refresh();
+    }, page);
+
+    return () => {
+      ctx.revert();
+
+      lenis.off('scroll', handleScroll);
+
+      gsap.ticker.remove(raf);
+
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
+
+  const scrollTo = (id: string) => {
+    const target = document.querySelector(id);
+
+    if (!target) {
+      return;
+    }
+
+    setOpen(false);
+
+    const lenis = lenisRef.current;
+
+    if (lenis) {
+      lenis.scrollTo(target, {
+        offset: -88,
+        duration: 1.05,
+      });
+    } else {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
+  return (
+    <div
+      ref={page}
+      className="min-h-screen overflow-hidden bg-ink text-cream selection:bg-champagne selection:text-ink"
+    >
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-ink/60 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+          <button
+            onClick={() => scrollTo('#top')}
+            className="flex items-center gap-3 text-left"
+          >
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-champagne font-display font-bold text-ink">
+              JS
+            </span>
+
+            <span className="font-display text-sm font-semibold uppercase tracking-[0.16em]">
+              Car Services
+            </span>
+          </button>
+
+          <nav className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.14em] text-white/60 md:flex">
+            <button
+              onClick={() => scrollTo('#services')}
+              className="transition hover:text-white"
+            >
+              Services
+            </button>
+
+            <button
+              onClick={() => scrollTo('#aanpak')}
+              className="transition hover:text-white"
+            >
+              Aanpak
+            </button>
+
+            <button
+              onClick={() => scrollTo('#contact')}
+              className="transition hover:text-white"
+            >
+              Contact
+            </button>
+          </nav>
+
+          <button
+            onClick={() => setOpen((current) => !current)}
+            className="grid h-10 w-10 place-items-center rounded-full border border-white/10 md:hidden"
+            aria-label="Menu"
+            aria-expanded={open}
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="border-t border-white/5 bg-ink px-5 py-6 md:hidden"
+            >
+              <div className="flex flex-col gap-5 text-sm uppercase tracking-widest text-white/70">
+                <button onClick={() => scrollTo('#services')}>
+                  Services
+                </button>
+
+                <button onClick={() => scrollTo('#aanpak')}>
+                  Aanpak
+                </button>
+
+                <button onClick={() => scrollTo('#contact')}>
+                  Contact
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      <main id="top">
+        <section className="relative flex min-h-screen items-end px-5 pb-16 pt-32 lg:px-8">
+          <div className="absolute inset-0">
+            <img
+              src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=2200&q=90"
+              alt="Premium auto"
+              className="h-full w-full object-cover object-center opacity-60"
+            />
+
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_25%,rgba(200,169,107,.16),transparent_34%),linear-gradient(90deg,#08090B_4%,rgba(8,9,11,.72)_45%,rgba(8,9,11,.2)_100%)]" />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/30" />
+          </div>
+
+          <div className="relative mx-auto w-full max-w-7xl">
+            <div className="max-w-5xl">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-champagne"
+              >
+                JS Car Services · Detailing & onderhoud
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.8 }}
+                className="font-display text-[clamp(4rem,11vw,9.5rem)] font-semibold leading-[.82] tracking-[-0.07em] text-white"
+              >
+                Uw wagen.
+                <br />
+                <span className="text-white/40">Onze standaard.</span>
+              </motion.h1>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center"
+              >
+                <button
+                  onClick={() => scrollTo('#contact')}
+                  className="inline-flex w-fit items-center gap-3 rounded-full bg-champagne px-6 py-3.5 text-sm font-bold text-ink transition hover:bg-cream"
+                >
+                  Vraag een kostenraming
+                  <ArrowRight size={17} />
+                </button>
+
+                <button
+                  onClick={() => scrollTo('#services')}
+                  className="inline-flex w-fit items-center gap-3 text-sm font-semibold text-white/70 hover:text-white"
+                >
+                  Bekijk services
+                  <ArrowDown size={16} />
+                </button>
+              </motion.div>
+            </div>
+
+            <div className="mt-16 flex items-end justify-between border-t border-white/15 pt-5 text-xs uppercase tracking-[0.18em] text-white/40">
+              <span>Premium car care</span>
+
+              <span className="hidden sm:block">
+                Vlaanderen · Op aanvraag
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 py-28 lg:px-8 lg:py-40">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr]">
+            <div className="reveal">
+              <p className="eyebrow">01 / JS Car Services</p>
+
+              <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight sm:text-6xl">
+                Meer dan een propere wagen.
+              </h2>
+            </div>
+
+            <div className="reveal max-w-2xl lg:pt-10">
+              <p className="text-xl leading-9 text-white/70 sm:text-2xl">
+                Van een premium handwas tot polieren, coating en onderhoud:
+                JS Car Services brengt aandacht voor detail samen met een
+                persoonlijke aanpak.
+              </p>
+
+              <div className="line-reveal mt-10 h-px w-full bg-white/15" />
+
+              <p className="mt-7 text-sm leading-7 text-white/45">
+                Heeft jouw wagen iets anders nodig? Bespreek het. Werk op
+                aanvraag is mogelijk wanneer de opdracht past binnen onze
+                mogelijkheden.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="services"
+          className="px-5 py-20 lg:px-8 lg:py-28"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="reveal mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <p className="eyebrow">02 / Services</p>
+
+                <h2 className="mt-5 font-display text-5xl font-semibold tracking-tight sm:text-7xl">
+                  Wat we doen.
+                </h2>
+              </div>
+
+              <p className="max-w-xs text-sm leading-6 text-white/45">
+                Van verzorging tot correctie en bescherming. Elke wagen vraagt
+                een aanpak op maat.
+              </p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2">
+              {content.services.map((service) => (
+                <ServiceCard
+                  key={service.number}
+                  {...service}
+                />
+              ))}
+            </div>
+
+            <p className="mt-6 max-w-3xl text-xs leading-6 text-white/35">
+              {content.priceNote}
+            </p>
+          </div>
+        </section>
+
+        <section
+          id="aanpak"
+          className="relative px-5 py-28 lg:px-8 lg:py-40"
+        >
+          <div className="absolute inset-0 bg-graphite/60" />
+
+          <div className="relative mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center">
+            <div className="reveal overflow-hidden rounded-[2rem]">
+              <img
+                src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1600&q=85"
+                alt="Detailing close-up"
+                className="aspect-[4/5] w-full object-cover"
+              />
+            </div>
+
+            <div className="reveal">
+              <p className="eyebrow">03 / Aanpak</p>
+
+              <h2 className="mt-6 font-display text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
+                Details maken het verschil.
+              </h2>
+
+              <p className="mt-8 max-w-xl text-base leading-8 text-white/55">
+                Een wagen hoeft niet alleen schoon te zijn. De afwerking zit
+                in de details. Daarom starten we met luisteren naar wat jij en
+                jouw wagen nodig hebben, voor we een gerichte kostenraming
+                maken.
+              </p>
+
+              <div className="mt-10 grid grid-cols-2 gap-4">
+                {[
+                  'Persoonlijke aanpak',
+                  'Maatwerk',
+                  'Premium afwerking',
+                  'Duidelijke raming',
+                ].map((item, index) => (
+                  <div
+                    key={item}
+                    className="border-t border-white/15 pt-4"
+                  >
+                    <span className="font-mono text-xs text-champagne">
+                      0{index + 1}
+                    </span>
+
+                    <p className="mt-3 text-sm text-white/75">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 py-28 lg:px-8 lg:py-40">
+          <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-champagne/20 bg-[radial-gradient(circle_at_70%_20%,rgba(200,169,107,.14),transparent_38%)] p-8 sm:p-14 lg:p-20">
+            <p className="eyebrow">04 / Maatwerk</p>
+
+            <div className="mt-8 grid gap-10 lg:grid-cols-[1.3fr_.7fr] lg:items-end">
+              <h2 className="font-display text-5xl font-semibold leading-[.95] tracking-tight sm:text-7xl lg:text-8xl">
+                Niet gevonden wat je zoekt?
+              </h2>
+
+              <div>
+                <p className="text-sm leading-7 text-white/55">
+                  Andere automotive werken kunnen op aanvraag besproken
+                  worden. Vertel ons wat je wagen nodig heeft.
+                </p>
+
+                <button
+                  onClick={() => scrollTo('#contact')}
+                  className="mt-7 inline-flex items-center gap-2 font-semibold text-champagne hover:text-cream"
+                >
+                  Bespreek je wagen
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="contact"
+          className="px-5 pb-10 pt-10 lg:px-8 lg:pb-16"
+        >
+          <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2.5rem] bg-cream text-ink lg:grid-cols-[.9fr_1.1fr]">
+            <div className="p-8 sm:p-12 lg:p-16">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-ink/45">
+                05 / Contact
+              </p>
+
+              <h2 className="mt-6 font-display text-5xl font-semibold leading-none tracking-tight sm:text-6xl">
+                Klaar voor de volgende stap?
+              </h2>
+
+              <p className="mt-6 max-w-md text-sm leading-7 text-ink/60">
+                Neem contact op voor een gerichte kostenraming. Vermeld bij
+                voorkeur je wagen en de gewenste service.
+              </p>
+
+              <div className="mt-10 space-y-4 text-sm">
+                <a
+                  href={`tel:${content.contact.phone.replace(/\s/g, '')}`}
+                  className="flex items-center gap-3 font-semibold hover:opacity-60"
+                >
+                  <Phone size={17} />
+                  {content.contact.phone}
+                </a>
+
+                <a
+                  href={`mailto:${content.contact.email}`}
+                  className="flex items-center gap-3 font-semibold hover:opacity-60"
+                >
+                  <Mail size={17} />
+                  {content.contact.email}
+                </a>
+              </div>
+            </div>
+
+            <form
+              className="bg-ink p-8 sm:p-12 lg:p-16"
+              onSubmit={(event) => event.preventDefault()}
+            >
+              <div className="grid gap-6 sm:grid-cols-2">
+                {['Naam', 'Telefoon', 'E-mail', 'Voertuig'].map((label) => (
+                  <label
+                    key={label}
+                    className="block"
+                  >
+                    {label}
+
+                    <input
+                      required={label === 'Naam' || label === 'E-mail'}
+                      className="field"
+                      placeholder={
+                        label === 'Voertuig'
+                          ? 'Merk + model'
+                          : ''
+                      }
+                    />
+                  </label>
+                ))}
+
+                <label className="sm:col-span-2">
+                  Gewenste service
+
+                  <select className="field">
+                    <option>Premium handwas</option>
+                    <option>Polieren</option>
+                    <option>Coating</option>
+                    <option>Onderhoud</option>
+                    <option>Andere / op aanvraag</option>
+                  </select>
+                </label>
+
+                <label className="sm:col-span-2">
+                  Bericht
+
+                  <textarea
+                    className="field min-h-32"
+                    placeholder="Vertel kort wat je wagen nodig heeft..."
+                  />
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                className="mt-7 inline-flex items-center gap-3 rounded-full bg-champagne px-6 py-3.5 text-sm font-bold text-ink transition hover:bg-cream"
+              >
+                Aanvraag versturen
+                <ArrowRight size={17} />
+              </button>
+
+              <p className="mt-5 text-xs leading-5 text-white/35">
+                Dit formulier is momenteel front-end only. Koppel later een
+                formulierdienst of backend om inzendingen te ontvangen.
+              </p>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer className="px-5 py-12 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 border-t border-white/10 pt-8 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <div className="font-display text-2xl font-bold">
+              JS<span className="text-champagne">.</span>
+            </div>
+
+            <p className="mt-2 text-xs uppercase tracking-[0.18em] text-white/35">
+              Car Services
+            </p>
+          </div>
+
+          <div className="flex items-center gap-5 text-white/45">
+            <a
+              href={`tel:${content.contact.phone.replace(/\s/g, '')}`}
+              aria-label="Telefoon"
+              className="hover:text-white"
+            >
+              <Phone size={18} />
+            </a>
+
+            <a
+              href={`mailto:${content.contact.email}`}
+              aria-label="E-mail"
+              className="hover:text-white"
+            >
+              <Mail size={18} />
+            </a>
+
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="hover:text-white"
+            >
+              <Instagram size={18} />
+            </a>
+          </div>
+
+          <p className="text-xs text-white/25">
+            © {new Date().getFullYear()} JS Car Services
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
