@@ -18,15 +18,15 @@ import { ServicePage } from './pages/ServicePage';
 import { content } from './data/content';
 import './styles.css';
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-    const pathname = window.location.pathname;
+  const pathname = window.location.pathname;
 
   const serviceSlug = pathname.startsWith('/diensten/')
     ? pathname.replace('/diensten/', '').replace(/\/$/, '')
     : null;
+
   const page = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -116,35 +116,42 @@ export default function App() {
   }, []);
 
   const scrollTo = (id: string) => {
-  setOpen(false);
+    setOpen(false);
 
-  const lenis = lenisRef.current;
+    const lenis = lenisRef.current;
 
-  if (lenis) {
-    lenis.scrollTo(id, {
-      offset: -88,
-      duration: 1.05,
+    if (lenis) {
+      lenis.scrollTo(id, {
+        offset: -88,
+        duration: 1.05,
+      });
+
+      return;
+    }
+
+    const target = document.querySelector(id);
+
+    if (!target) {
+      return;
+    }
+
+    target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
     });
+  };
 
-    if (serviceSlug) {
+  /*
+   * Service pages
+   *
+   * /diensten/premium-handwas
+   * /diensten/polieren
+   * /diensten/coating
+   * /diensten/onderhoud
+   */
+  if (serviceSlug) {
     return <ServicePage slug={serviceSlug} />;
   }
-
-  return (
-    <div
-  }
-
-  const target = document.querySelector(id);
-
-  if (!target) {
-    return;
-  }
-
-  target.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start',
-  });
-};
 
   return (
     <div
