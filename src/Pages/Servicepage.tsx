@@ -21,7 +21,7 @@ const services: Record<string, ServiceData> = {
     packages: [
       {
         name: 'Premium handwas',
-        price: '€ 50',
+        price: '€ 30',
         features: [
           'Krasvrije wasbeurt (2 emmer methode)',
           'Reinigen deurstijlen en instaplijsten',
@@ -33,7 +33,7 @@ const services: Record<string, ServiceData> = {
       },
       {
         name: 'Premium handwas + basis interieur',
-        price: '€ 80',
+        price: '€ 50',
         popular: true,
         features: [
           'Krasvrije wasbeurt (2 emmer methode)',
@@ -57,7 +57,7 @@ const services: Record<string, ServiceData> = {
     packages: [
       {
         name: 'Coating Pakket',
-        price: '€ 800',
+        price: '€ 600',
         features: [
           'Grondige reiniging, veilige handwas',
           'Kleibehandeling en decontaminatie',
@@ -68,7 +68,7 @@ const services: Record<string, ServiceData> = {
       },
       {
         name: 'New Car Coating Pakket',
-        price: '€ 600',
+        price: '€ 400',
         features: [
           'Grondige reiniging, veilige handwas',
           'Chemische decontaminatie',
@@ -89,7 +89,7 @@ const services: Record<string, ServiceData> = {
     packages: [
       {
         name: 'Polier pakket',
-        price: '€ 400',
+        price: '€ 200',
         features: [
           'Grondige reiniging, veilige handwas',
           'Kleibehandeling en decontaminatie',
