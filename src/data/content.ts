@@ -89,7 +89,7 @@ export const content: {
       slug: 'polieren',
       title: 'Polieren',
       short: 'Lakcorrectie en een diepere, strakkere uitstraling.',
-      price: 'Vanaf €400',
+      price: 'Vanaf €200',
       image:
         'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1600&q=85',
 
