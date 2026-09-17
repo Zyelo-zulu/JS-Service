@@ -47,14 +47,14 @@ export const content: {
       slug: 'premium-handwas',
       title: 'Premium handwas',
       short: 'Een grondige handwas met aandacht voor elk detail.',
-      price: 'Vanaf €50',
+      price: 'Vanaf €30',
       image:
         'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1600&q=85',
 
       packages: [
         {
           name: 'Premium handwas',
-          price: '€50',
+          price: '€30',
           included: [
             'Krasvrije wasbeurt (2 emmer methode)',
             'Reinigen deurstijlen en instaplijsten',
@@ -67,7 +67,7 @@ export const content: {
 
         {
           name: 'Premium handwas + basis interieur',
-          price: '€80',
+          price: '€50',
           popular: true,
           included: [
             'Krasvrije wasbeurt (2 emmer methode)',
@@ -96,7 +96,7 @@ export const content: {
       packages: [
         {
           name: 'Polier pakket',
-          price: '€400',
+          price: '€200',
           included: [
             'Grondige reiniging, veilige handwas',
             'Kleibehandeling en decontaminatie',
@@ -119,7 +119,7 @@ export const content: {
       packages: [
         {
           name: 'Coating Pakket',
-          price: '€800',
+          price: '€500',
           included: [
             'Grondige reiniging, veilige handwas',
             'Kleibehandeling en decontaminatie',
@@ -131,7 +131,7 @@ export const content: {
 
         {
           name: 'New Car Coating Pakket',
-          price: '€600',
+          price: '€400',
           included: [
             'Grondige reiniging, veilige handwas',
             'Chemische decontaminatie',
